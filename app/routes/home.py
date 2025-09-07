@@ -23,5 +23,38 @@ def createpost():
         flash('post created successfully','success')
         return redirect(url_for('home.home'))
     return render_template('createpost.html')
+@home_bp.route("/update/<int:post_id>", methods =["GET","POST"])
+def update(post_id):
+    if 'user' not in session:
+        return redirect(url_for('auth.login'))
+
+    username = session.get('user')
+    postss = post.query.get(post_id)
+
+    # Author check
+    if username != postss.username:
+        flash("You are not allowed to edit this post", "danger")
+        return redirect(url_for('home.home'))
+
+    if request.method == "POST":
+        postss.title = request.form.get("title")
+        postss.discription = request.form.get("discription")
+        db.session.commit()
+        flash("Post updated successfully!", "success")
+        return redirect(url_for('home.home'))
+
+    # GET request → show edit form
+    return render_template("update.html", post=postss)
+@home_bp.route("/delete/<int:post_id>", methods =["GET","POST"])
+def delete(post_id):
+    postss = post.query.get(post_id)
+    db.session.delete(postss)
+    db.session.commit()
+    flash('post deleted' , 'success')
+    return redirect(url_for('home.home'))
+
+        
+
+
     
 
