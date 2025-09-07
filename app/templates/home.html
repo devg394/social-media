@@ -12,6 +12,8 @@
         <h1>{{pp.author}}</h1>
         <h1>{{pp.title}}</h1>
         <h1>{{pp.discription}}</h1>
+        <a href="{{ url_for('home.update', post_id=pp.id) }}">Edit</a>
+
     </div>
     {% endfor %}
    </div>
