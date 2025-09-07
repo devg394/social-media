@@ -23,5 +23,12 @@ def createpost():
         flash('post created successfully','success')
         return redirect(url_for('home.home'))
     return render_template('createpost.html')
+@home_bp.route("/delete/<int:post_id>", methods =["GET","POST"])
+def delete(post_id):
+    postss = post.query.get(post_id)
+    db.session.delete(postss)
+    db.session.commit()
+    flash('post deleted' , 'success')
+    return redirect(url_for('home.home'))
     
 

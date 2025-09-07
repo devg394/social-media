@@ -12,12 +12,12 @@
         <h1>{{pp.author}}</h1>
         <h1>{{pp.title}}</h1>
         <h1>{{pp.discription}}</h1>
+        <form action="{{url_for('home.delete', post_id=pp.id)}}">
+        <button type="submit">delete</button>
+    </form>
     </div>
     {% endfor %}
    </div>
-
-
-
     {% endif %}
     <a href="{{url_for('home.createpost')}}">Create post</a>
 </div>
