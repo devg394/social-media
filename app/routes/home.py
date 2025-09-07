@@ -24,7 +24,6 @@ def createpost():
         return redirect(url_for('home.home'))
     return render_template('createpost.html')
 @home_bp.route("/update/<int:post_id>", methods =["GET","POST"])
-@home_bp.route("/update/<int:post_id>", methods=["GET", "POST"])
 def update(post_id):
     if 'user' not in session:
         return redirect(url_for('auth.login'))
@@ -46,6 +45,13 @@ def update(post_id):
 
     # GET request → show edit form
     return render_template("update.html", post=postss)
+@home_bp.route("/delete/<int:post_id>", methods =["GET","POST"])
+def delete(post_id):
+    postss = post.query.get(post_id)
+    db.session.delete(postss)
+    db.session.commit()
+    flash('post deleted' , 'success')
+    return redirect(url_for('home.home'))
 
         
 
