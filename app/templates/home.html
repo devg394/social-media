@@ -1,0 +1,25 @@
+{% extends "base.html"%} 
+{% block title %}Login{% endblock %} 
+{% block content%}
+<div>
+    {% if not posts %}
+   <p>No posts available.</p>
+   {% else %}
+   <div>
+    {% for pp in posts %}
+    <div>
+        <h1>{{loop.index}}</h1>
+        <h1>{{pp.author}}</h1>
+        <h1>{{pp.title}}</h1>
+        <h1>{{pp.discription}}</h1>
+    </div>
+    {% endfor %}
+   </div>
+
+
+
+    {% endif %}
+    <a href="{{url_for('home.createpost')}}">Create post</a>
+</div>
+
+{% endblock %}
